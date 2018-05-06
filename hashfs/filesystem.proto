@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package filesystem;
+
+// Defines a single node in filesystem tree
+message Node {
+    // stat
+    uint32 mode = 1;
+    uint32 uid = 2;
+    uint32 gid = 3;
+    uint64 size = 4;
+    uint64 blockcnt = 5;
+    uint64 mtime_ns = 6;
+    uint64 ctime_ns = 7;
+
+    // hash or symlink target
+    string target = 8;
+
+    // tree
+    map<string, Node> childern = 9;
+}
+
+message Filesystem {
+    Node root = 1;
+
+    uint32 version = 2;
+}
