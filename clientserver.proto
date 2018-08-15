@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package clientserver;
+
+message RequestNode {
+    string client_name = 1;
+    string password = 2;
+    string pub_key = 3;
+    repeated string capabilities = 4;
+}
+
+message RequestNodeResponse {
+    enum ResponseStatus {
+        OK = 0;
+        UNAVILABLE = 1;
+        UNAUTHORISED = 2;
+        ERROR = 3;
+    }
+
+    ResponseStatus status = 1;
+    string  node_hostname = 2;
+}
