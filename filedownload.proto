@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package filedownload;
+
+message FileRequest {
+    uint64 id = 1;
+    string path = 2;
+
+    enum RequestType {
+        GET = 0;
+        CHECKSUM = 1;
+    }
+
+    RequestType type = 3;
+}
+
+message FileResponse {
+    uint64 id = 1;
+    bool next_chunk = 2;
+
+    oneof payload {
+        string checksum = 3;
+        bytes data = 4;
+    }
+}
