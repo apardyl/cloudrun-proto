@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package nodecontrol;
+
+message NodeRegisterRequest {
+    string hostname = 1;
+    string secret = 2;
+    repeated string capability = 3;
+}
+
+message NodeRegisterResponse {
+    enum RegistrationResponse {
+        OK = 0;
+        UNAUTHORISED = 1;
+    }
+    RegistrationResponse response = 1;
+}
+
+message NodeAllocationRequest {
+    string client_name = 1;
+    string client_secret = 2;
+}
+
+message NodeAllocationResponse {
+    enum AllocationResponse {
+        OK = 0;
+        UNAVAILABLE = 1;
+        UNAUTHORISED = 2;
+    }
+    AllocationResponse response = 1;
+}
