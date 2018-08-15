@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package filedownload;
 
+// Request file content or checksum
 message FileRequest {
     uint64 id = 1;
     string path = 2;
@@ -14,6 +15,7 @@ message FileRequest {
     RequestType type = 3;
 }
 
+// Send file checksum or (possibly chunked) content
 message FileResponse {
     uint64 id = 1;
     bool next_chunk = 2;

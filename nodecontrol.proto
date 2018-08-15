@@ -2,12 +2,14 @@ syntax = "proto3";
 
 package nodecontrol;
 
+// Register node in controller
 message NodeRegisterRequest {
     string hostname = 1;
     string secret = 2;
     repeated string capability = 3;
 }
 
+// Controller's response to node's registration
 message NodeRegisterResponse {
     enum RegistrationResponse {
         OK = 0;
@@ -16,12 +18,19 @@ message NodeRegisterResponse {
     RegistrationResponse response = 1;
 }
 
-message NodeAllocationRequest {
+// Allocate node for client session (server -> node)
+message NodeAllocateRequest {
     string client_name = 1;
     string client_secret = 2;
 }
 
-message NodeAllocationResponse {
+// End any active session on node (server -> node)
+message NodeFreeRequest {
+    bool kill_active_session = 1;
+}
+
+// Node's response to allocate/free requests
+message NodeResponse {
     enum AllocationResponse {
         OK = 0;
         UNAVAILABLE = 1;
