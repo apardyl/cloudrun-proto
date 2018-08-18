@@ -2,9 +2,7 @@ syntax = "proto3";
 
 package filesystem;
 
-// Defines a single node in filesystem tree
-message Node {
-    // stat
+message Stat {
     uint32 mode = 1;
     uint32 uid = 2;
     uint32 gid = 3;
@@ -12,12 +10,17 @@ message Node {
     uint64 blockcnt = 5;
     uint64 mtime_ns = 6;
     uint64 ctime_ns = 7;
+}
+
+// Defines a single node in filesystem tree
+message Node {
+    Stat stat = 1;
 
     // hash or symlink target
-    string target = 8;
+    string target = 2;
 
     // tree
-    map<string, Node> childern = 9;
+    map<string, Node> childern = 3;
 }
 
 message Filesystem {

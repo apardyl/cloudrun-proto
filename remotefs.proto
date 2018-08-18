@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package remotefs;
+
+import "filesystem.proto";
+
+// node -> client
+service RemoteFS {
+    rpc GetChecksum (FileRequest) returns (ChecksumResponse);
+    rpc GetStat (FileRequest) returns (filesystem.Stat);
+    rpc GetData (FileRequest) returns (stream DataChunkResponse);
+    rpc ListDirectory (FileRequest) returns (FileListResponse);
+    rpc PutFile (stream DataChunkRequest) returns (Empty);
+}
+
+message FileRequest {
+    string path = 1;
+}
+
+message ChecksumResponse {
+    string checksum = 1;
+}
+
+message DataChunkResponse {
+    bytes data = 1;
+}
+
+message DataChunkRequest {
+    oneof payload {
+        string path = 1;
+        bytes data = 2;
+    }
+}
+
+message FileListResponse {
+    repeated string item = 1;
+}
+
+message Empty {
+}
+
+enum Error {
+    OK = 0;
+    NOT_FOUND = 1000;
+    NOT_A_DIR = 1001;
+    UNAUTHORIZED = 1003;
+    EXCEPTION = 1004;
+}
