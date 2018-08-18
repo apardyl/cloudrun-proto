@@ -38,11 +38,3 @@ message FileListResponse {
 
 message Empty {
 }
-
-enum Error {
-    OK = 0;
-    NOT_FOUND = 1000;
-    NOT_A_DIR = 1001;
-    UNAUTHORIZED = 1003;
-    EXCEPTION = 1004;
-}
