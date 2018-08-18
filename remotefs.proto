@@ -26,14 +26,24 @@ message DataChunkResponse {
 }
 
 message DataChunkRequest {
-    oneof payload {
+    message Request {
         string path = 1;
+        filesystem.Stat stat = 2;
+    }
+
+    oneof payload {
+        Request request = 1;
         bytes data = 2;
     }
 }
 
 message FileListResponse {
-    repeated string item = 1;
+    message DirEntity {
+        string name = 1;
+        uint32 type = 2;
+    }
+
+    repeated DirEntity item = 1;
 }
 
 message Empty {
