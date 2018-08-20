@@ -21,6 +21,9 @@ message Node {
 
     // tree
     map<string, Node> childern = 3;
+
+    // Indicates that the children list might not be complete
+    bool partial = 4;
 }
 
 message Filesystem {

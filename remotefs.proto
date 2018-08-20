@@ -8,6 +8,7 @@ import "filesystem.proto";
 service RemoteFS {
     rpc GetChecksum (FileRequest) returns (ChecksumResponse);
     rpc GetStat (FileRequest) returns (filesystem.Stat);
+    rpc GetLink (FileRequest) returns (LinkResponse);
     rpc GetData (FileRequest) returns (stream DataChunkResponse);
     rpc ListDirectory (FileRequest) returns (FileListResponse);
     rpc PutFile (stream DataChunkRequest) returns (Empty);
@@ -19,6 +20,10 @@ message FileRequest {
 
 message ChecksumResponse {
     string checksum = 1;
+}
+
+message LinkResponse {
+    string target = 1;
 }
 
 message DataChunkResponse {
@@ -40,7 +45,10 @@ message DataChunkRequest {
 message FileListResponse {
     message DirEntity {
         string name = 1;
-        uint32 type = 2;
+        filesystem.Stat stat = 2;
+
+        // Symlink target
+        string taget = 3;
     }
 
     repeated DirEntity item = 1;
