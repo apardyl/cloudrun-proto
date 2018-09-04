@@ -20,7 +20,7 @@ message Node {
     string target = 2;
 
     // tree
-    map<string, Node> childern = 3;
+    map<string, Node> children = 3;
 
     // Indicates that the children list might not be complete
     bool partial = 4;
